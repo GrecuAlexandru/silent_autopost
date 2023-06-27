@@ -1,0 +1,16 @@
+certifi==2020.12.5
+chardet==4.0.0
+decorator==4.4.2
+idna
+imageio==2.9.0
+imageio-ffmpeg==0.4.3
+moviepy==1.0.3
+Pillow
+proglog==0.1.9
+requests==2.25.1
+selenium
+tqdm
+urllib3==1.26.4
+setuptools~=54.1.2
+undetected-chromedriver
+fake_useragent
