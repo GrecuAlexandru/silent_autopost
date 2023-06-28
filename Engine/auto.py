@@ -20,7 +20,7 @@ def limit_cpu():
 def youtube_shorts_upload():
 
     # Command to upload the video
-    command = 'python ./YoutubeShorts/upload_video.py --file="./Output/final_video.mp4" --title="The Quote Realm | Quotes #quotes #shorts #deep #advice #motivation" --description="Quotes | The Quote Realm #quotes #shorts" --privacyStatus="public" --noauth_local_webserver'
+    command = 'python ./Engine/YoutubeShorts/upload_video.py --file="./Output/final_video.mp4" --title="The Quote Realm | Quotes #quotes #shorts #deep #advice #motivation" --description="Quotes | The Quote Realm #quotes #shorts" --privacyStatus="private" --noauth_local_webserver'
 
     # Run the command and capture the output
     output = subprocess.check_output(command, shell=True)

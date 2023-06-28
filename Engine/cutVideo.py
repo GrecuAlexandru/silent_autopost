@@ -1,9 +1,11 @@
 import subprocess
 
+# Cut video from start_time to start_time+duration
 def cut_video(video_path, length, output_path):
     start_time=0
     duration=length
 
+    # Uses ffmpeg to cut video, must install manually
     command = [
         'ffmpeg',
         '-y',

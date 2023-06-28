@@ -1,1 +1,14 @@
 Silent Autopost started!
+RANDOM MINUTE : 3
+STARTED MACHINE
+It's time to post!
+Getting Quote : 2023-06-28 13:43:42.384378
+Got Quote : 2023-06-28 13:43:42.817152
+Uploading to Youtube Shorts : 2023-06-28 13:44:12.819385
+Uploading file...
+Video id 'E1zVncrZNc0' was successfully uploaded.
+Uploading file...
+Video id 'E1zVncrZNc0' was successfully uploaded.
+
+Uploaded to Youtube Shorts : 2023-06-28 13:44:15.354263
+Video Uploaded!

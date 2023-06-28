@@ -131,7 +131,7 @@ dmypy.json
 # # Personal Development Files
 .vscode/
 /Engine/Temp/*
-/Engine/Utils/client_secrets.json
+/Engine/YoutubeShorts/client_secrets.json
 /Engine/YoutubeShorts/client_secret_*.json
 /Engine/YoutubeShorts/upload_video.py-oauth2.json
 /Engine/YoutubeShorts/upload_video.py.bak

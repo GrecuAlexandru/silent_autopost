@@ -172,12 +172,14 @@ def make_video(text, author):
 
 
     # Define the codec and create VideoWriter object
+    output_video_path = os.path.join(project_directory, "Engine/Temp/output.mp4")
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter('output.mp4', fourcc, fps,
+    out = cv2.VideoWriter(output_video_path, fourcc, fps,
                         (int(cap.get(3)), int(cap.get(4))))
 
 
     frame_path = os.path.join(project_directory, "Engine/Temp/frame.jpg")
+
     # Read frames from video and add text
     while (cap.isOpened()):
         ret, frame = cap.read()
@@ -209,7 +211,6 @@ def make_video(text, author):
     cap.release()
     out.release()
 
-    output_video_path = os.path.join(project_directory, "Engine/Temp/output.mp4")
     # Load the video clip
     video = VideoFileClip(output_video_path)
 

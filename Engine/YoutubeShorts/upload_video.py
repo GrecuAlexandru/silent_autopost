@@ -17,7 +17,9 @@ from oauth2client.tools import argparser, run_flow
 
 def write_output(text):
     print(text)
-    file = open("../App/output.txt", "a")
+    outputtxt_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                   "../../App/output.txt"))
+    file = open(outputtxt_path, "a")
     file.write(text)
     file.write("\n")
     file.close()
@@ -75,6 +77,8 @@ https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
 """ % os.path.abspath(os.path.join(os.path.dirname(__file__),
                                    CLIENT_SECRETS_FILE))
 
+CLIENT_SECRETS_FILE = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                   CLIENT_SECRETS_FILE))
 VALID_PRIVACY_STATUSES = ("public", "private", "unlisted")
 
 
