@@ -3,15 +3,17 @@ import cv2
 import time
 import random
 import textwrap
-from cutVideo import cut_video
+from .cutVideo import cut_video
 from PIL import Image, ImageFont, ImageDraw
-from getShortestLength import get_shortest_length
+from .getShortestLength import get_shortest_length
 from moviepy.editor import VideoFileClip, AudioFileClip
+
 
 # Function to delete a file
 def deleteFile(filename):
     if os.path.exists(filename):
         os.remove(filename)
+
 
 # Funciton to add text on a frame
 def add_subtitle(
@@ -20,8 +22,8 @@ def add_subtitle(
     author="author",
 ):
     # Configurable variables
-    stroke_color=(0, 0, 0)
-    font_color=(255, 255, 255)
+    stroke_color = (0, 0, 0)
+    font_color = (255, 255, 255)
 
     # Get the absolute path of the current Python script
     current_script_path = os.path.abspath(__file__)
@@ -31,11 +33,11 @@ def add_subtitle(
 
     # Navigate up the directory tree until you reach the project directory
     project_directory = current_directory
-    while not os.path.basename(project_directory) == 'silent_autopost':
+    while not os.path.basename(project_directory) == "silent_autopost":
         project_directory = os.path.dirname(project_directory)
 
     # Define the relative path to your file within the project directory
-    font_path = 'Engine/Utils/ProximaNovaSemibold.otf'
+    font_path = "Engine/Utils/ProximaNovaSemibold.otf"
 
     font = os.path.join(project_directory, font_path)
 
@@ -46,7 +48,7 @@ def add_subtitle(
 
     # Wrap the text
     text = center_wrap(text, cwidth=40, width=40)
-    
+
     # Get the width and height of the background image
     W, H = bg.width, bg.height
 
@@ -54,8 +56,8 @@ def add_subtitle(
     draw = ImageDraw.Draw(bg)
 
     # Set the font size and stroke width
-    font_size = int(35*W/720)
-    stroke_width = int(3*W/720)
+    font_size = int(35 * W / 720)
+    stroke_width = int(3 * W / 720)
 
     # Set the font
     font = ImageFont.truetype(font, font_size)
@@ -67,7 +69,7 @@ def add_subtitle(
     # Calculate the x and y coordinates of the text (centered horizontally and vertically)
     # (x,y) is top left corner of the text
     x = (W - box[2]) / 2
-    y = ((H - box[3]) / 2) - (H*700/3840)
+    y = ((H - box[3]) / 2) - (H * 700 / 3840)
 
     # Draw the text
     draw.multiline_text(
@@ -78,7 +80,7 @@ def add_subtitle(
         fill=font_color,
         stroke_width=stroke_width,
         stroke_fill=stroke_color,
-    )   
+    )
 
     # Get the width and height of the author text
     author_box_width = draw.textbbox((0, 0), author, font=font)[2]
@@ -90,7 +92,7 @@ def add_subtitle(
     author_y = y + box[3] + author_box_height + 30
 
     # Save the image created until now to a temporary file
-    auxx_path = 'Engine/Temp/auxx.jpg'
+    auxx_path = "Engine/Temp/auxx.jpg"
 
     auxx = os.path.join(project_directory, auxx_path)
 
@@ -102,13 +104,13 @@ def add_subtitle(
     # Draw the author text on the image opened
     drawAuthor = ImageDraw.Draw(bg)
     drawAuthor.text(
-        (author_x, author_y), 
-        "- "+author, 
+        (author_x, author_y),
+        "- " + author,
         font=font,
         align="center",
         fill=font_color,
         stroke_width=stroke_width,
-        stroke_fill=(15,15,15)
+        stroke_fill=(15, 15, 15),
     )
 
     # Return the final image
@@ -117,7 +119,6 @@ def add_subtitle(
 
 # Function to make a video
 def make_video(text, author):
-
     # Get random sound #
 
     # Get the absolute path of the current Python script
@@ -128,16 +129,20 @@ def make_video(text, author):
 
     # Navigate up the directory tree until you reach the project directory
     project_directory = current_directory
-    while not os.path.basename(project_directory) == 'silent_autopost':
+    while not os.path.basename(project_directory) == "silent_autopost":
         project_directory = os.path.dirname(project_directory)
 
     # Define the relative path to your file within the project directory
-    sounds_path = 'Sounds'
+    sounds_path = "Sounds"
 
     sound_folder_path = os.path.join(project_directory, sounds_path)
 
     # Get a list of all the files in the folder
-    sound_files = [f for f in os.listdir(sound_folder_path) if os.path.isfile(os.path.join(sound_folder_path, f))]
+    sound_files = [
+        f
+        for f in os.listdir(sound_folder_path)
+        if os.path.isfile(os.path.join(sound_folder_path, f))
+    ]
 
     # Choose a random file from the list
     random_sound_file = random.choice(sound_files)
@@ -145,15 +150,18 @@ def make_video(text, author):
     # Get the path to the random file
     sound_file = os.path.join(sound_folder_path, random_sound_file)
 
-
     # Get a random video #
 
-    videos_path = 'Videos'
+    videos_path = "Videos"
 
     video_folder_path = os.path.join(project_directory, videos_path)
 
     # Get a list of all the files in the folder
-    video_files = [f for f in os.listdir(video_folder_path) if os.path.isfile(os.path.join(video_folder_path, f))]
+    video_files = [
+        f
+        for f in os.listdir(video_folder_path)
+        if os.path.isfile(os.path.join(video_folder_path, f))
+    ]
 
     # Choose a random file from the list
     random_video_file = random.choice(video_files)
@@ -170,38 +178,37 @@ def make_video(text, author):
     # Get the frame rate of the video
     fps = cap.get(cv2.CAP_PROP_FPS)
 
-
     # Define the codec and create VideoWriter object
     output_video_path = os.path.join(project_directory, "Engine/Temp/output.mp4")
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(output_video_path, fourcc, fps,
-                        (int(cap.get(3)), int(cap.get(4))))
-
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+    out = cv2.VideoWriter(
+        output_video_path, fourcc, fps, (int(cap.get(3)), int(cap.get(4)))
+    )
 
     frame_path = os.path.join(project_directory, "Engine/Temp/frame.jpg")
 
     # Read frames from video and add text
-    while (cap.isOpened()):
+    while cap.isOpened():
         ret, frame = cap.read()
         if ret:
             # Write the frame to the output file
             cv2.imwrite(frame_path, frame)
-            
+
             # For each frame wait 0.25 seconds for it to be processed
             time.sleep(0.25)
 
             # Open the frame
             frame = Image.open(frame_path)
-            
+
             # Add the text to the frame
             frame = add_subtitle(frame, text, author)
-            
+
             # Save the frame
             frame.save(frame_path)
 
             # Read the frame
             frame = cv2.imread(frame_path)
-            
+
             # Write the frame to the output file
             out.write(frame)
         else:
@@ -220,11 +227,11 @@ def make_video(text, author):
     # Overlay the audio on the video
     final_video = video.set_audio(audio)
 
-
-    video_with_music_path = os.path.join(project_directory, "Engine/Temp/video_with_music.mp4")
+    video_with_music_path = os.path.join(
+        project_directory, "Engine/Temp/video_with_music.mp4"
+    )
     # Write the final video to disk
     final_video.write_videofile(video_with_music_path)
-
 
     # Get the absolute path of the current Python script
     current_script_path = os.path.abspath(__file__)
@@ -234,23 +241,29 @@ def make_video(text, author):
 
     # Navigate up the directory tree until you reach the project directory
     project_directory = current_directory
-    while not os.path.basename(project_directory) == 'silent_autopost':
+    while not os.path.basename(project_directory) == "silent_autopost":
         project_directory = os.path.dirname(project_directory)
 
     # Define the relative path to your file within the project directory
-    relative_path_to_video_with_music = 'Engine/Temp/video_with_music.mp4'
-    relative_path_to_output_video = 'Output/final_video.mp4'
-
+    relative_path_to_video_with_music = "Engine/Temp/video_with_music.mp4"
+    relative_path_to_output_video = "Output/final_video.mp4"
 
     # Construct the absolute path by joining the project directory and the relative path
-    absolute_path_to_video_with_music = os.path.join(project_directory, relative_path_to_video_with_music)
-    absolute_path_to_output_video = os.path.join(project_directory, relative_path_to_output_video)
+    absolute_path_to_video_with_music = os.path.join(
+        project_directory, relative_path_to_video_with_music
+    )
+    absolute_path_to_output_video = os.path.join(
+        project_directory, relative_path_to_output_video
+    )
 
     print(absolute_path_to_output_video)
     print(absolute_path_to_video_with_music)
 
-
     # Cut the video to the shortest length
-    cut_video(absolute_path_to_video_with_music, shortest_length, absolute_path_to_output_video)
+    cut_video(
+        absolute_path_to_video_with_music,
+        shortest_length,
+        absolute_path_to_output_video,
+    )
 
     cv2.destroyAllWindows()

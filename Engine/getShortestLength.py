@@ -1,5 +1,6 @@
 import moviepy.editor as mp
 
+# Get the shortest length of the video and audio files
 def get_shortest_length(video_file, sound_file):
     video = mp.VideoFileClip(video_file)
     audio = mp.AudioFileClip(sound_file)
